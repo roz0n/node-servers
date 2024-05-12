@@ -2,20 +2,6 @@ const dgram = require("dgram");
 const os = require("os");
 const server = dgram.createSocket("udp4");
 
-function getLocalIP() {
-  const interfaces = os.networkInterfaces();
-
-  for (const iface of Object.values(interfaces)) {
-    for (const config of iface) {
-      if (config.family === "IPv4" && !config.internal) {
-        return config.address;
-      }
-    }
-  }
-
-  return "0.0.0.0";
-}
-
 server.on("error", (err) => {
   console.log(`Server error:\n${err.stack}`);
   server.close();
